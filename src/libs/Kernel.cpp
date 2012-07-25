@@ -95,8 +95,7 @@ Kernel::Kernel(){
 void Kernel::delay_us( uint16_t uSecs ) 
 {
   volatile uint16_t start = TIM5->CNT;
-  // this->__start = TIM5->CNT;
-  
+ 
   volatile int x = 0;
   while((TIM5->CNT - start) <= uSecs) {
     x++;
