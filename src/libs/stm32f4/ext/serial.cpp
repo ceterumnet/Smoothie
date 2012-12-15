@@ -14,10 +14,8 @@ void Serial::baud(int b) {
 
 };
 
-char Serial::getc() {
-    uint8_t c;
-    VCP_get_char(&c);
-    return c;
+bool Serial::getc(char *c) {
+    return VCP_get_char(c);
 };
 
 void Serial::puts(char *buf) {

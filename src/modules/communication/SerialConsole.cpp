@@ -38,14 +38,15 @@ void SerialConsole::on_module_loaded() {
         
 // Called on Serial::RxIrq interrupt, meaning we have received a char
 uint32_t SerialConsole::on_serial_char_received(uint32_t _x = NULL){
-   if(this->serial->readable()){
-        char received = this->serial->getc();
+        char received;
+        
+        while(this->serial->getc(&received)) {
+            if( received == '\r' ){ return; }
+            this->buffer.push_back(received);
+        };
         //On newline, we have received a line, else concatenate in buffer
         // convert CR to NL (for host OSs that don't send NL)
-        // if( received == '\r' ){ received = '\n'; }
-        if( received == '\r' ){ return; }
-        this->buffer.push_back(received);
-   }
+        // if( received == '\r' ){ received = '\n'; }        
 }
         
 // Actual event calling must happen in the main loop because if it happens in the interrupt we will loose data

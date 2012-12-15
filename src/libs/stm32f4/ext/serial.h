@@ -21,7 +21,7 @@ class Serial {
 		
 		void baud(int);
 
-		char getc();
+		bool getc(char *);
 		void puts(char *);
 		
 		template<typename T>
